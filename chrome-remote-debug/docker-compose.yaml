@@ -1,8 +1,8 @@
 services:
   neko:
-    image: 'ghcr.io/m1k1o/neko/google-chrome'
+    image: 'ghcr.io/m1k1o/neko-apps/chrome-remote-debug:latest'
     restart: unless-stopped
-    shm_size: 2gb
+    shm_size: 4gb
     cap_add:
       - SYS_ADMIN
     ports:
@@ -10,11 +10,16 @@ services:
       - '9223:9223'                    # Socat proxy for external DevTools access
       - '52000-52100:52000-52100/udp'
     volumes:
-      # Persistent browser profile storage (custom location)
-      - "./chrome-profile:/home/neko/chrome-profile"
+      - nekromium:/home/neko/.config/chromium # persist chromium settings
+      # Persistent browser profile storage (correct path for Chrome) - disabled for now
+      # - "./chrome-profile:/home/neko/.config/google-chrome"
     environment:
-      NEKO_DESKTOP_SCREEN: 1366x768@30
+      NEKO_DESKTOP_SCREEN: 1920x1080@30
       NEKO_MEMBER_MULTIUSER_USER_PASSWORD: neko
       NEKO_MEMBER_MULTIUSER_ADMIN_PASSWORD: admin
       NEKO_WEBRTC_EPR: 52000-52100
       NEKO_WEBRTC_ICELITE: 1
+      NEKO_WEBRTC_NAT1TO1: ${NEKO_WEBRTC_NAT1TO1:-10.121.15.169}
+volumes:
+  nekromium:
+    driver: local
