@@ -1,0 +1,26 @@
+{
+  "name": "neko-chrome-cdp-test",
+  "version": "1.0.0",
+  "description": "Playwright CDP testing for Neko Chrome remote debug",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test-cdp.js",
+    "test-basic": "node test-basic-cdp.js",
+    "install-playwright": "npx playwright install chromium"
+  },
+  "dependencies": {
+    "playwright": "^1.40.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0"
+  },
+  "keywords": [
+    "playwright",
+    "cdp",
+    "chrome",
+    "remote-debug",
+    "neko"
+  ],
+  "author": "",
+  "license": "MIT"
+}
