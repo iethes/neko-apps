@@ -7,7 +7,7 @@ services:
       - SYS_ADMIN
     ports:
       - "3003:8080"
-      - "9223:9223"
+      - "9223:9222"
       - "52000-52100:52000-52100/udp"
     volumes:
       - ./extensions:/home/neko/extensions
@@ -15,12 +15,14 @@ services:
       - ./brave.conf:/etc/neko/supervisord/brave.conf
       - ./chrome-profile:/home/neko/chrome-profile
     environment:
-      NEKO_CHROME_FLAGS: "--remote-debugging-port=9222 --disable-gpu --no-sandbox --load-extension=/home/neko/extensions/autorun-extension-v1.0.2"
-      NEKO_NAT1TO1: "127.0.0.1"
+      NEKO_CHROME_FLAGS: "--remote-debugging-port=9222 --remote-debugging-address=0.0.0.0 --disable-gpu --no-sandbox --load-extension=/home/neko/extensions/autorun-extension-v1.0.2"
+      # NEKO_NAT1TO1: "127.0.0.1"
+      NEKO_WEBRTC_IP_RETRIEVAL_URL: https://ifconfig.co/ip
       
       NEKO_MEMBER_PROVIDER: "multiuser"
       NEKO_MEMBER_MULTIUSER_ADMIN_PASSWORD: "neko"
       NEKO_MEMBER_MULTIUSER_USER_PASSWORD: "admin"
       # NEKO_DESKTOP_SCREEN: "1920x1080@30"
       NEKO_WEBRTC_EPR: 52000-52100
+      NEKO_ICELITE: 1
       # NEKO_WEBRTC_ICELITE: 1
